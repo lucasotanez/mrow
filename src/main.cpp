@@ -57,6 +57,9 @@ int main(int argc, char* args[])
     SDL_Texture* leo20 = window.loadTexture("res/img/leo/animationkitty20.png");
     SDL_Texture* leo21= window.loadTexture("res/img/leo/animationkitty21.png");
 
+    SDL_Texture* kittyBed = window.loadTexture("res/img/kittybed/kittybed.png");
+    SDL_Texture* kittyBedFilled = window.loadTexture("res/img/kittybed/kittybedfilled.png");
+
 
     //END TEXTURES
     //===============================================================================
@@ -105,11 +108,13 @@ int main(int argc, char* args[])
     Character char0(Vector2f(100, 60), charRight, 64, 64, walkRightAnim, walkLeftAnim);
     Character catLeo(Vector2f(50, 70), leo1, 64, 64, leoThought, leoThought);
 
+    Entity catBed(Vector2f(240, 30), kittyBed, 64, 64);
+
 
     //SERIALIZE ENTITIES HERE (for rendering)
     //=======================
     //first item in list is rendered first (behind all other items)
-    vector<Entity*> entities = {&catLeo, &char0};
+    vector<Entity*> entities = {&catLeo, &catBed, &char0};
 
     //dynamic primitives
     vector<SDL_Rect*> primRects;

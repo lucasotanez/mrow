@@ -32,13 +32,12 @@ void Character::jump(){
 
 void Character::playAnimation(Animation* anim, float timestamp, float frameLength){
     //TODO
-
     if (timestamp - lastAction >= frameLength /*animation speed*/){
-        changeTex((*anim)[anim->step_]);
-        if (anim->step_ >= anim->numFrames()-1){
+        if (anim->step_ == anim->numFrames()-1){
             anim->step_ = 0;
         }
         else anim->step_++;
+        changeTex((*anim)[anim->step_]);
         lastAction = timestamp;
     }
 }
