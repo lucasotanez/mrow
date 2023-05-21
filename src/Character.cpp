@@ -30,10 +30,10 @@ void Character::jump(){
     
 }
 
-void Character::playAnimation(Animation* anim, float timestamp){
+void Character::playAnimation(Animation* anim, float timestamp, float frameLength){
     //TODO
 
-    if (timestamp - lastAction >= 0.25 /*animation speed*/){
+    if (timestamp - lastAction >= frameLength /*animation speed*/){
         changeTex((*anim)[anim->step_]);
         if (anim->step_ >= anim->numFrames()-1){
             anim->step_ = 0;

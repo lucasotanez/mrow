@@ -15,10 +15,10 @@ int main(int argc, char* args[])
     if (SDL_Init(SDL_INIT_VIDEO) != 0) cout << "SDL_Init FAILED: " << SDL_GetError() << endl;
     if (!(IMG_Init(IMG_INIT_PNG))) cout << "IMG_Init FAILED: " << SDL_GetError() << endl;
 
-    const int width = 1280;
-    const int height = 720;
+    const int width = 1480;
+    const int height = 920;
 
-    RenderWindow window("GAME v1.0", width, height);
+    RenderWindow window("Mrow v0.0.1", width, height);
 
     cout << "Refresh Rate: " << window.getRefreshRate() << endl;
 
@@ -29,14 +29,34 @@ int main(int argc, char* args[])
     SDL_Texture* charRight = window.loadTexture("res/img/charRight.png");
     SDL_Texture* charLeft = window.loadTexture("res/img/charLeft.png");
 
-    //SDL_Texture* frogHead = window.loadTexture("res/img/testfroghead.png");
-    SDL_Texture* grassFlat = window.loadTexture("res/img/longGrass.png");
-
     SDL_Texture* walkRight1 = window.loadTexture("res/img/charRightWalk1.png");
     SDL_Texture* walkRight2 = window.loadTexture("res/img/charRightWalk2.png");
 
     SDL_Texture* walkLeft1 = window.loadTexture("res/img/charLeftWalk1.png");
     SDL_Texture* walkLeft2 = window.loadTexture("res/img/charLeftWalk2.png");
+
+    SDL_Texture* leo1 = window.loadTexture("res/img/leo/animationkitty1.png");
+    SDL_Texture* leo2 = window.loadTexture("res/img/leo/animationkitty2.png");
+    SDL_Texture* leo3 = window.loadTexture("res/img/leo/animationkitty3.png");
+    SDL_Texture* leo4 = window.loadTexture("res/img/leo/animationkitty4.png");
+    SDL_Texture* leo5 = window.loadTexture("res/img/leo/animationkitty5.png");
+    SDL_Texture* leo6 = window.loadTexture("res/img/leo/animationkitty6.png");
+    SDL_Texture* leo7 = window.loadTexture("res/img/leo/animationkitty7.png");
+    SDL_Texture* leo8 = window.loadTexture("res/img/leo/animationkitty8.png");
+    SDL_Texture* leo9 = window.loadTexture("res/img/leo/animationkitty9.png");
+    SDL_Texture* leo10 = window.loadTexture("res/img/leo/animationkitty10.png");
+    SDL_Texture* leo11 = window.loadTexture("res/img/leo/animationkitty11.png");
+    SDL_Texture* leo12 = window.loadTexture("res/img/leo/animationkitty12.png");
+    SDL_Texture* leo13 = window.loadTexture("res/img/leo/animationkitty13.png");
+    SDL_Texture* leo14 = window.loadTexture("res/img/leo/animationkitty14.png");
+    SDL_Texture* leo15 = window.loadTexture("res/img/leo/animationkitty15.png");
+    SDL_Texture* leo16 = window.loadTexture("res/img/leo/animationkitty16.png");
+    SDL_Texture* leo17 = window.loadTexture("res/img/leo/animationkitty17.png");
+    SDL_Texture* leo18 = window.loadTexture("res/img/leo/animationkitty18.png");
+    SDL_Texture* leo19 = window.loadTexture("res/img/leo/animationkitty19.png");
+    SDL_Texture* leo20 = window.loadTexture("res/img/leo/animationkitty20.png");
+    SDL_Texture* leo21= window.loadTexture("res/img/leo/animationkitty21.png");
+
 
     //END TEXTURES
     //===============================================================================
@@ -55,36 +75,53 @@ int main(int argc, char* args[])
     walkLeftAnim.addFrame(walkLeft2);
     //walk left animation initialized
 
+    Animation leoThought;
+    leoThought.addFrame(leo1);
+    leoThought.addFrame(leo2);
+    leoThought.addFrame(leo3);
+    leoThought.addFrame(leo4);
+    leoThought.addFrame(leo5);
+    leoThought.addFrame(leo6);
+    leoThought.addFrame(leo7);
+    leoThought.addFrame(leo8);
+    leoThought.addFrame(leo9);
+    leoThought.addFrame(leo10);
+    leoThought.addFrame(leo11);
+    leoThought.addFrame(leo12);
+    leoThought.addFrame(leo13);
+    leoThought.addFrame(leo14);
+    leoThought.addFrame(leo15);
+    leoThought.addFrame(leo16);
+    leoThought.addFrame(leo17);
+    leoThought.addFrame(leo18);
+    leoThought.addFrame(leo19);
+    leoThought.addFrame(leo20);
+    leoThought.addFrame(leo21);
+
+
     //END ANIMATIONS
     //===============================================================================
 
     Character char0(Vector2f(100, 60), charRight, 64, 64, walkRightAnim, walkLeftAnim);
-    Entity grass0(Vector2f(100, 140), grassFlat, 200, 32);
+    Character catLeo(Vector2f(50, 70), leo1, 64, 64, leoThought, leoThought);
 
 
     //SERIALIZE ENTITIES HERE (for rendering)
     //=======================
     //first item in list is rendered first (behind all other items)
-    // vector<Entity*> entities = {&grass0, &char0};
-    vector<Entity*> entities = {&char0};
+    vector<Entity*> entities = {&catLeo, &char0};
 
     //dynamic primitives
     vector<SDL_Rect*> primRects;
 
     SDL_Rect floor;
     floor.x = 0;
-    floor.y = height-120;
+    floor.y = 0;
     floor.w = width;
-    floor.h = 120;
-
-    SDL_Rect sky;
-    sky.x = 0;
-    sky.y = 0;
-    sky.w = width;
-    sky.h = height;
+    floor.h = height;
 
     //constant primitives
-    const vector<SDL_Rect*> constPrimRects = {&sky, &floor};
+    const vector<SDL_Rect*> constPrimRects = {&floor};
 
     //=======================
 
@@ -105,6 +142,7 @@ int main(int argc, char* args[])
     wPressed = sPressed = dPressed = aPressed = spacePressed = shiftPressed = false;
 
     bool inAir = false;
+    bool leoAnim = false;
 
     //game loooooooop
     //IF GAME IS TAKING A LOT OF CPU: comment out all console logs
@@ -164,6 +202,9 @@ int main(int argc, char* args[])
                         shiftPressed = true;
                         playerSpeed *= 2;
                     }
+                    if (event.key.keysym.sym == SDLK_p){
+                        leoAnim = true;
+                    }
                 }
                 if (event.type == SDL_KEYUP){
                     if (event.key.keysym.sym == SDLK_w){
@@ -185,17 +226,17 @@ int main(int argc, char* args[])
                     if (event.key.keysym.sym == SDLK_SPACE){
                         spacePressed = false;
                     }
-		    if (event.key.keysym.sym == SDLK_LSHIFT){
-			shiftPressed = false;	
-			playerSpeed /= 2;
+                    if (event.key.keysym.sym == SDLK_LSHIFT){
+                        shiftPressed = false;	
+                        playerSpeed /= 2;
                     }
                 }
             }
             //char0.getPos().print();
 
-            if (char0.getPos().y >= 0 && char0.getPos().y <= 100/*height/4*/){
+            if (char0.getPos().y >= 0 && char0.getPos().y <= height/scaleF - 64/*height/4*/){
                 if (wPressed){
-                        char0.movePos(playerSpeed, 'N');
+                    char0.movePos(playerSpeed, 'N');
                 }
                 if (sPressed){
                     char0.movePos(playerSpeed, 'S');
@@ -205,11 +246,11 @@ int main(int argc, char* args[])
                 if (aPressed && dPressed){} //Do nothing
                 else if (aPressed){
                     char0.movePos(playerSpeed, 'W');
-                    char0.playAnimation(&walkLeftAnim, utils::timeInSeconds());
+                    char0.playAnimation(&walkLeftAnim, utils::timeInSeconds(), 0.25);
                 }
                 else if (dPressed){
                     char0.movePos(playerSpeed, 'E');
-                    char0.playAnimation(&walkRightAnim, utils::timeInSeconds());
+                    char0.playAnimation(&walkRightAnim, utils::timeInSeconds(), 0.25);
                 }
             }
             if (char0.getPos().x > width/scaleF - 64){
@@ -218,30 +259,18 @@ int main(int argc, char* args[])
             if (char0.getPos().x < 0){
                 char0.setPos(0, char0.getPos().y);
             }
-            if (char0.getPos().y > 100){
-                char0.setPos(char0.getPos().x, 100);
+            if (char0.getPos().y > height/scaleF - 64){
+                char0.setPos(char0.getPos().x, height/scaleF - 64);
             }
             if (char0.getPos().y < 0){
                 char0.setPos(char0.getPos().x, 0);
-   	    }
-	    if (spacePressed && !inAir){
-		inAir = true;
-                spaceTime = utils::timeInSeconds();
-                upSpeed = 6.5;
-	    }
-            if (char0.getPos().y > scaleF){
-	        if (utils::timeInSeconds() - spaceTime < 2){
-		    if (char0.getPos().y < 100 || upSpeed > 0){
-		        char0.movePos(upSpeed, 'N');
-		        upSpeed -= 0.23;
-		    } 
-		    else{
-			inAir = false;
-		    }
-	        }  
-            }
-            if (char0.getPos().y < 100){
-                char0.movePos(playerSpeed, 'S');
+   	        }
+            if (leoAnim){
+                if (leoThought.step_ == 20) {
+                    leoThought.step_ = 0;
+                    leoAnim = false;
+                }
+                catLeo.playAnimation(&leoThought, utils::timeInSeconds(), 0.08);
             }
 
             accumulator -= deltaTime;
