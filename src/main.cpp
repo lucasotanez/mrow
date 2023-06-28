@@ -264,7 +264,7 @@ int main(int argc, char* args[])
             if (char0.getPos().x < 0){
                 char0.setPos(0, char0.getPos().y);
             }
-            if (char0.getPos().y > height/scaleF - 64){
+            if (char0.getPos().y > static_cast<float>(height)/scaleF - 64){
                 char0.setPos(char0.getPos().x, height/scaleF - 64);
             }
             if (char0.getPos().y < 0){
